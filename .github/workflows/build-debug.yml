@@ -1,0 +1,47 @@
+name: Build Debug
+
+env:
+  SMART_CONTRACT_NAME: a-dex.chat
+
+on:
+  push:
+    branches: [develop, 'feature/**']
+  pull_request:
+    branches: [develop]
+
+jobs:
+  ubuntu-1804-build:
+    name: Ubuntu 18.04 | Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    container: 
+      image: avm007/eosio.cdt:latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2   
+
+      - name: Build Debug
+        run: |
+          chmod +x build.sh
+          ./build.sh -e /root/eosio/2.0 -c /usr/opt/eosio.cdt -d -t
+
+      - name: Run unit tests
+        run: |
+          ./build/Debug/tests/${SMART_CONTRACT_NAME}_unit_test --log_format=JUNIT --log_sink=./build/Debug/tests/Testing/Temporary/LastTest.xml
+        continue-on-error: true
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v2
+        with:
+          report_paths: build/Debug/tests/Testing/Temporary/LastTest.xml
+        continue-on-error: true
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ubuntu-1804-build-debug
+          path: |
+            build/Debug/*/*.abi
+            build/Debug/*/*.wasm
+            build/Debug/tests/Testing/Temporary/LastTest.xml
