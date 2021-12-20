@@ -12,7 +12,7 @@ on:
 jobs:
   ubuntu-1804-build:
     name: Ubuntu 18.04 | Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     timeout-minutes: 15
     container: 
       image: avm007/eosio.cdt:latest
