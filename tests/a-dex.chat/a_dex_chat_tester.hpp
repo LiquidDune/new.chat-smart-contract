@@ -20,4 +20,7 @@ protected:
 
 public:
     a_dex_chat_tester();
+
+private:
+    void channels_init();
 };

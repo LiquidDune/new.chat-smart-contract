@@ -17,9 +17,44 @@ a_dex_chat_api::a_dex_chat_api(name acnt, tester *tester)
     abi_ser.set_abi(abi, base_tester::abi_serializer_max_time);
 }
 
+fc::variant a_dex_chat_api::get_public_channel(const account_name &channel)
+{
+    vector<char> data = _tester->get_row_by_account(contract, contract, N(pubchannels), channel);
+    return data.empty() ? fc::variant() : abi_ser.binary_to_variant("channel", data, base_tester::abi_serializer_max_time);
+}
+
+fc::variant a_dex_chat_api::get_private_channel(const account_name &channel)
+{
+    vector<char> data = _tester->get_row_by_account(contract, contract, N(prvchannels), channel);
+    return data.empty() ? fc::variant() : abi_ser.binary_to_variant("channel", data, base_tester::abi_serializer_max_time);
+}
+
+action_result a_dex_chat_api::create_public_channel(const account_name &signer, const account_name &channel,
+                                                    const account_name &owner, const std::string &description)
+{
+    auto data = mutable_variant_object()
+    ("channel", channel)
+    ("owner", owner)
+    ("description", description);
+
+    return push_action(signer, contract, N(crtpubch), data);
+}
+
+action_result a_dex_chat_api::create_private_channel(const account_name &signer, const account_name &channel,
+                                                     const account_name &owner, const std::string &description, const fc::crypto::public_key& public_key)
+{
+    auto data = mutable_variant_object()
+    ("channel", channel)
+    ("owner", owner)
+    ("description", description)
+    ("public_key", public_key);
+
+    return push_action(signer, contract, N(crtprvch), data);
+}
+
 action_result a_dex_chat_api::send_direct_message(const account_name &signer, const account_name &from, const account_name &to,
-                                                 const string &iv, const string &ephem_key,
-                                                 const string &cipher_text, const string &mac)
+                                                  const string &iv, const string &ephem_key,
+                                                  const string &cipher_text, const string &mac)
 {
     auto data = mutable_variant_object()
     ("from", from)
@@ -30,6 +65,36 @@ action_result a_dex_chat_api::send_direct_message(const account_name &signer, co
     ("mac", mac);
 
     return push_action(signer, contract, N(senddm), data);
+}
+
+action_result a_dex_chat_api::send_public_channel_message(const account_name &signer, const account_name &from, const account_name &channel,
+                                                          const string &iv, const string &ephem_key,
+                                                          const string &cipher_text, const string &mac)
+{
+    auto data = mutable_variant_object()
+    ("from", from)
+    ("channel", channel)
+    ("iv", iv)
+    ("ephem_key", ephem_key)
+    ("cipher_text", cipher_text)
+    ("mac", mac);
+
+    return push_action(signer, contract, N(sendpubchmsg), data);
+}
+
+action_result a_dex_chat_api::send_private_channel_message(const account_name &signer, const account_name &from, const account_name &channel,
+                                                           const string &iv, const string &ephem_key,
+                                                           const string &cipher_text, const string &mac)
+{
+    auto data = mutable_variant_object()
+    ("from", from)
+    ("channel", channel)
+    ("iv", iv)
+    ("ephem_key", ephem_key)
+    ("cipher_text", cipher_text)
+    ("mac", mac);
+
+    return push_action(signer, contract, N(sendprvchmsg), data);
 }
 
 action_result a_dex_chat_api::push_action(const name &signer, const name &cnt, const action_name &name, const variant_object &data)

@@ -16,4 +16,5 @@ a-dex.chat.cpp
 target_include_directories(a-dex.chat
 PUBLIC
 ${CMAKE_CURRENT_SOURCE_DIR}/tables
+${CMAKE_CURRENT_SOURCE_DIR}/include
 )

@@ -19,9 +19,26 @@ class a_dex_chat_api
 public:
   a_dex_chat_api(name acnt, tester *tester);
 
-   action_result send_direct_message(const account_name &signer, const account_name &from, const account_name &to,
-                                     const string &iv, const string &ephem_key,
-                                     const string &cipher_text, const string &mac);
+  fc::variant get_public_channel(const account_name &channel);
+  fc::variant get_private_channel(const account_name &channel);
+
+  action_result create_public_channel(const account_name &signer, const account_name &channel,
+                                      const account_name &owner, const std::string &description);
+
+  action_result create_private_channel(const account_name &signer, const account_name &channel,
+                                       const account_name &owner, const std::string &description, const fc::crypto::public_key& public_key);
+
+  action_result send_direct_message(const account_name &signer, const account_name &from, const account_name &to,
+                                    const string &iv, const string &ephem_key,
+                                    const string &cipher_text, const string &mac);
+
+  action_result send_public_channel_message(const account_name &signer, const account_name &from, const account_name &channel,
+                                            const string &iv, const string &ephem_key,
+                                            const string &cipher_text, const string &mac);
+
+  action_result send_private_channel_message(const account_name &signer, const account_name &from, const account_name &channel,
+                                             const string &iv, const string &ephem_key,
+                                             const string &cipher_text, const string &mac);
 
   name contract;
 

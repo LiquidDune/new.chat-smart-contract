@@ -1,0 +1,1 @@
+const std::string DEFAULT_PUB_KEY("EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV");

@@ -1,1 +1,5 @@
+#include "create_private_channel_tests.hpp"
+#include "create_public_channel_tests.hpp"
 #include "send_direct_message_tests.hpp"
+#include "send_private_channel_message_tests.hpp"
+#include "send_public_channel_message_tests.hpp"

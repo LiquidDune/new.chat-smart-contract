@@ -10,7 +10,6 @@ try
     const std::string cipher_text = "808abe25ad64d96c9efbcd260702508f4cc55f82c54910c99e";
     const std::string mac = "b835cae2f63e0876e5a00aee0c916f73a72bd34320f662df444b9b1ffb169c81";
 
-
     BOOST_REQUIRE_EQUAL(wasm_assert_msg("send_direct_message : can not send to self"),
                         m_chat_api.send_direct_message(N(alice), N(alice), N(alice), iv, ephem_key, cipher_text, mac));
 

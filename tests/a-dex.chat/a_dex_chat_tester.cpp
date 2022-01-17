@@ -8,4 +8,13 @@ a_dex_chat_tester::a_dex_chat_tester()
         N(bob),
         N(carol),
     });
+
+    channels_init();
+}
+
+void a_dex_chat_tester::channels_init()
+{
+    BOOST_REQUIRE_EQUAL(success(), m_chat_api.create_private_channel(N(alice), N(testch1), N(alice), "description", fc::crypto::public_key(std::string("EOS74g4jziVae5GXyWnkcaPEabGWkkXaXYRPRgrCprAXksa8zub59"))));
+
+    BOOST_REQUIRE_EQUAL(success(), m_chat_api.create_public_channel(N(alice), N(testch1), N(alice), "description"));
 }
