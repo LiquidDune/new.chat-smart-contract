@@ -1,6 +1,6 @@
 #pragma once
 #include "contracts.hpp"
-#include "a_dex_chat_api.hpp"
+#include "new_chat_api.hpp"
 #include <boost/test/unit_test.hpp>
 #include <eosio/testing/tester.hpp>
 
@@ -13,13 +13,13 @@ using namespace std;
 
 using mvo = fc::mutable_variant_object;
 
-class a_dex_chat_tester : public tester
+class new_chat_tester : public tester
 {
 protected:
-    a_dex_chat_api m_chat_api;
+    new_chat_api m_chat_api;
 
 public:
-    a_dex_chat_tester();
+    new_chat_tester();
 
 private:
     void channels_init();

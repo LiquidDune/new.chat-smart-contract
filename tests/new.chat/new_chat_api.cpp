@@ -1,14 +1,14 @@
-#include "a_dex_chat_api.hpp"
+#include "new_chat_api.hpp"
 
-a_dex_chat_api::a_dex_chat_api(name acnt, tester *tester)
+new_chat_api::new_chat_api(name acnt, tester *tester)
 {
     contract = acnt;
     _tester = tester;
 
     _tester->create_accounts({contract});
 
-    _tester->set_code(contract, contracts::a_dex_chat_wasm());
-    _tester->set_abi(contract, contracts::a_dex_chat_abi().data());
+    _tester->set_code(contract, contracts::new_chat_wasm());
+    _tester->set_abi(contract, contracts::new_chat_abi().data());
 
     const auto &accnt = _tester->control->db().get<account_object, by_name>(contract);
 
@@ -17,19 +17,19 @@ a_dex_chat_api::a_dex_chat_api(name acnt, tester *tester)
     abi_ser.set_abi(abi, base_tester::abi_serializer_max_time);
 }
 
-fc::variant a_dex_chat_api::get_public_channel(const account_name &channel)
+fc::variant new_chat_api::get_public_channel(const account_name &channel)
 {
     vector<char> data = _tester->get_row_by_account(contract, contract, N(pubchannels), channel);
     return data.empty() ? fc::variant() : abi_ser.binary_to_variant("channel", data, base_tester::abi_serializer_max_time);
 }
 
-fc::variant a_dex_chat_api::get_private_channel(const account_name &channel)
+fc::variant new_chat_api::get_private_channel(const account_name &channel)
 {
     vector<char> data = _tester->get_row_by_account(contract, contract, N(prvchannels), channel);
     return data.empty() ? fc::variant() : abi_ser.binary_to_variant("channel", data, base_tester::abi_serializer_max_time);
 }
 
-action_result a_dex_chat_api::create_public_channel(const account_name &signer, const account_name &channel,
+action_result new_chat_api::create_public_channel(const account_name &signer, const account_name &channel,
                                                     const account_name &owner, const std::string &description)
 {
     auto data = mutable_variant_object()
@@ -40,7 +40,7 @@ action_result a_dex_chat_api::create_public_channel(const account_name &signer, 
     return push_action(signer, contract, N(crtpubch), data);
 }
 
-action_result a_dex_chat_api::create_private_channel(const account_name &signer, const account_name &channel,
+action_result new_chat_api::create_private_channel(const account_name &signer, const account_name &channel,
                                                      const account_name &owner, const std::string &description, const fc::crypto::public_key& public_key)
 {
     auto data = mutable_variant_object()
@@ -52,7 +52,7 @@ action_result a_dex_chat_api::create_private_channel(const account_name &signer,
     return push_action(signer, contract, N(crtprvch), data);
 }
 
-action_result a_dex_chat_api::send_direct_message(const account_name &signer, const account_name &from, const account_name &to,
+action_result new_chat_api::send_direct_message(const account_name &signer, const account_name &from, const account_name &to,
                                                   const string &iv, const string &ephem_key,
                                                   const string &cipher_text, const string &mac)
 {
@@ -67,7 +67,7 @@ action_result a_dex_chat_api::send_direct_message(const account_name &signer, co
     return push_action(signer, contract, N(senddm), data);
 }
 
-action_result a_dex_chat_api::send_public_channel_message(const account_name &signer, const account_name &from, const account_name &channel,
+action_result new_chat_api::send_public_channel_message(const account_name &signer, const account_name &from, const account_name &channel,
                                                           const string &iv, const string &ephem_key,
                                                           const string &cipher_text, const string &mac)
 {
@@ -82,7 +82,7 @@ action_result a_dex_chat_api::send_public_channel_message(const account_name &si
     return push_action(signer, contract, N(sendpubchmsg), data);
 }
 
-action_result a_dex_chat_api::send_private_channel_message(const account_name &signer, const account_name &from, const account_name &channel,
+action_result new_chat_api::send_private_channel_message(const account_name &signer, const account_name &from, const account_name &channel,
                                                            const string &iv, const string &ephem_key,
                                                            const string &cipher_text, const string &mac)
 {
@@ -97,7 +97,7 @@ action_result a_dex_chat_api::send_private_channel_message(const account_name &s
     return push_action(signer, contract, N(sendprvchmsg), data);
 }
 
-action_result a_dex_chat_api::push_action(const name &signer, const name &cnt, const action_name &name, const variant_object &data)
+action_result new_chat_api::push_action(const name &signer, const name &cnt, const action_name &name, const variant_object &data)
 {
     string action_type_name = abi_ser.get_action_type(name);
     action act;

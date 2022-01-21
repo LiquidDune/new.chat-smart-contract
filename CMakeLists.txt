@@ -9,9 +9,9 @@ find_package(eosio.cdt)
 set(DEBUG FALSE CACHE BOOL "Preparing build contracts")
 
 ExternalProject_Add(
-   a-dex.chat
-   SOURCE_DIR ${CMAKE_SOURCE_DIR}/a-dex.chat
-   BINARY_DIR ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/a-dex.chat
+   new.chat
+   SOURCE_DIR ${CMAKE_SOURCE_DIR}/new.chat
+   BINARY_DIR ${CMAKE_BINARY_DIR}/${CMAKE_BUILD_TYPE}/new.chat
    CMAKE_ARGS -DCMAKE_TOOLCHAIN_FILE=${EOSIO_CDT_ROOT}/lib/cmake/eosio.cdt/EosioWasmToolchain.cmake
    UPDATE_COMMAND ""
    PATCH_COMMAND ""

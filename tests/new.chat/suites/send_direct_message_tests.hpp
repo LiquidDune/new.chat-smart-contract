@@ -1,8 +1,8 @@
-#include "a_dex_chat_tester.hpp"
+#include "new_chat_tester.hpp"
 
 BOOST_AUTO_TEST_SUITE(send_direct_message_tests)
 
-BOOST_FIXTURE_TEST_CASE(send_direct_message_test, a_dex_chat_tester)
+BOOST_FIXTURE_TEST_CASE(send_direct_message_test, new_chat_tester)
 try
 {
     const std::string iv = "e29f631e46e79e3de14bfb8b6fbedbbc";

@@ -1,4 +1,4 @@
-#include "a-dex.chat.hpp"
+#include "new.chat.hpp"
 
 chat::chat(name receiver, name code, datastream<const char *> ds)
     : contract::contract(receiver, code, ds)

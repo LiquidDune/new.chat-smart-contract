@@ -1,10 +1,10 @@
 <p align="center">
-	<img src="./public/a-dex.chat-logo.png" width="600">
+	<img src="./public/new.chat-logo.png" width="600">
 </p>
 
-# a-dex.chat-smart-contract
+# new.chat-smart-contract
 
-The a-dex.chat smart contract is designed for encrypted messaging on EOSIO chains via ECDHE protocol.
+The new.chat smart contract is designed for encrypted messaging on EOSIO chains via ECDHE protocol.
 
 # Dependencies
 
@@ -21,5 +21,5 @@ The a-dex.chat smart contract is designed for encrypted messaging on EOSIO chain
 # Deploying
 
 ```
-cleos set contract <your_account> ./build/Release/a-dex.chat a-dex.chat.wasm a-dex.chat.abi
+cleos set contract <your_account> ./build/Release/new.chat new.chat.wasm new.chat.abi
 ```

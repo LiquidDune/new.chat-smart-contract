@@ -36,29 +36,29 @@ include(CTest) # eliminates DartConfiguration.tcl errors at test runtime
 enable_testing()
 
 include_directories(
-a-dex.chat
-a-dex.chat/suites
+new.chat
+new.chat/suites
 ${CMAKE_BINARY_DIR}
 ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 # find all unit test suites
-file(GLOB A_DEX_CHAT_UNIT_TESTS
+file(GLOB NEW_CHAT_UNIT_TESTS
 "*.cpp"
-"./a-dex.chat/*.cpp"
-"./a-dex.chat/suites/*.hpp"
+"./new.chat/*.cpp"
+"./new.chat/suites/*.hpp"
 )
 
-add_eosio_test_executable(a-dex.chat_unit_test ${A_DEX_CHAT_UNIT_TESTS}) # build unit tests as one executable
+add_eosio_test_executable(new.chat_unit_test ${NEW_CHAT_UNIT_TESTS}) # build unit tests as one executable
 
 # mark test suites for execution
-foreach(TEST_SUITE ${A_DEX_CHAT_UNIT_TESTS}) # create an independent target for each test suite
+foreach(TEST_SUITE ${NEW_CHAT_UNIT_TESTS}) # create an independent target for each test suite
   # get the test suite name from the *.cpp file
   execute_process(COMMAND bash -c "grep -E 'BOOST_AUTO_TEST_SUITE\\s*[(]' ${TEST_SUITE} | grep -vE '//.*BOOST_AUTO_TEST_SUITE\\s*[(]' | cut -d ')' -f 1 | cut -d '(' -f 2" OUTPUT_VARIABLE SUITE_NAME OUTPUT_STRIP_TRAILING_WHITESPACE)
   if (NOT "" STREQUAL "${SUITE_NAME}") # ignore empty lines
     execute_process(COMMAND bash -c "echo ${SUITE_NAME} | sed -e 's/s$//' | sed -e 's/_test$//'" OUTPUT_VARIABLE TRIMMED_SUITE_NAME OUTPUT_STRIP_TRAILING_WHITESPACE) # trim "_test" or "_tests" from the end of ${SUITE_NAME}
     # to run unit_test with all log from blockchain displayed, put "--verbose" after "--", i.e. "unit_test -- --verbose"
-    add_test(NAME ${TRIMMED_SUITE_NAME}_unit_test COMMAND a-dex.chat_unit_test --run_test=${SUITE_NAME} --report_level=detailed --color_output --log_format=JUNIT --output_format=XML)
+    add_test(NAME ${TRIMMED_SUITE_NAME}_unit_test COMMAND new.chat_unit_test --run_test=${SUITE_NAME} --report_level=detailed --color_output --log_format=JUNIT --output_format=XML)
   endif()
 endforeach(TEST_SUITE)
 

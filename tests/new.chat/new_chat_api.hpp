@@ -14,10 +14,10 @@ using namespace std;
 using action_result = base_tester::action_result;
 using mvo = fc::mutable_variant_object;
 
-class a_dex_chat_api
+class new_chat_api
 {
 public:
-  a_dex_chat_api(name acnt, tester *tester);
+  new_chat_api(name acnt, tester *tester);
 
   fc::variant get_public_channel(const account_name &channel);
   fc::variant get_private_channel(const account_name &channel);

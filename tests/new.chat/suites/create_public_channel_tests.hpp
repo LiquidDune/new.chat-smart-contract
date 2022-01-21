@@ -1,8 +1,8 @@
-#include "a_dex_chat_tester.hpp"
+#include "new_chat_tester.hpp"
 
 BOOST_AUTO_TEST_SUITE(create_public_channel_tests)
 
-BOOST_FIXTURE_TEST_CASE(create_public_channel_test, a_dex_chat_tester)
+BOOST_FIXTURE_TEST_CASE(create_public_channel_test, new_chat_tester)
 try
 {
     const std::string description = "some description";

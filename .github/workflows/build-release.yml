@@ -1,7 +1,7 @@
 name: Build Release
 
 env:
-  SMART_CONTRACT_NAME: a-dex.chat
+  SMART_CONTRACT_NAME: new.chat
 
 on:
   push:

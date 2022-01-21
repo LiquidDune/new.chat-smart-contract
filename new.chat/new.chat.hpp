@@ -6,7 +6,7 @@
 
 using namespace eosio;
 
-class[[eosio::contract("a-dex.chat")]] chat : public contract
+class[[eosio::contract("new.chat")]] chat : public contract
 {
 public:
     chat(name receiver, name code, datastream<const char *> ds);

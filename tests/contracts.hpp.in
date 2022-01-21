@@ -8,8 +8,8 @@ namespace testing
 
 struct contracts
 {
-    static std::vector<uint8_t> a_dex_chat_wasm() { return read_wasm("${CMAKE_BINARY_DIR}/../a-dex.chat/a-dex.chat.wasm"); }
-    static std::vector<char> a_dex_chat_abi() { return read_abi("${CMAKE_BINARY_DIR}/../a-dex.chat/a-dex.chat.abi"); }
+    static std::vector<uint8_t> new_chat_wasm() { return read_wasm("${CMAKE_BINARY_DIR}/../new.chat/new.chat.wasm"); }
+    static std::vector<char> new_chat_abi() { return read_abi("${CMAKE_BINARY_DIR}/../new.chat/new.chat.abi"); }
 };
 
 } // namespace testing

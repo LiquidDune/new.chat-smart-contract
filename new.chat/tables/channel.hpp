@@ -3,7 +3,7 @@
 
 using namespace eosio;
 
-struct [[eosio::contract("a-dex.chat"), eosio::table]] channel
+struct [[eosio::contract("new.chat"), eosio::table]] channel
 {
     name channel;
     name owner;
